@@ -25,8 +25,8 @@ workflows:
     jobs:
       - print_hello
       - print_world:
-        requires: 
-          - print_hello
+          requires: 
+            - print_hello
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
