@@ -6,6 +6,18 @@ version: 2.1
 orbs:
   node: circleci/node@4.7
 
+jobs:
+  print_hello:
+    docker: # executor type
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo "Hello"
+  print_world:
+    docker: # executor type
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo "World"
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -19,3 +31,6 @@ workflows:
           version: '16.10'
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
+      - print_hello
+      - print_world:
+        requires: [print_hello]
