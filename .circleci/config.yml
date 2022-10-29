@@ -6,16 +6,22 @@ version: 2.1
 orbs:
   node: circleci/node@4.7
 
+executors:
+  my-executor:
+    docker:
+      - image: circleci/node:13.8.0
+    working_directory: /tmp
+
 jobs:
   save_hello_world_output:
-    docker: 
-      - image: circleci/node:13.8.0
+    executor: my-executor
     steps:
       - run: echo 'Hello World' > output.txt
       - persist_to_workspace:
           paths:
                 - output.txt
   print_output_file:
+    executor: my-executor
     steps:
       - attach_workspace:
           at: /tmp
