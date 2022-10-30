@@ -26,7 +26,7 @@ jobs:
           name: Install dependencies
           command: |
             # install the dependencies needed for your playbook
-            apk add --update ansible 
+            apt update ansible 
       - run: ansible --version
       - run: ansible-playbook -i inventory main-remote.yml
 
