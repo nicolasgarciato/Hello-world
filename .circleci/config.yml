@@ -147,12 +147,12 @@ jobs:
 workflows:
   initial_setup:
     jobs:
-      - configure_infrastructure:
-          filters:
-                branches:
-                  only:
-                    - master
-                    - test
+      - configure_infrastructure
+          # filters:
+          #       branches:
+          #         only:
+          #           - master
+          #           - test
       - create_infrastructure
       - smoke_test2:
           requires:
