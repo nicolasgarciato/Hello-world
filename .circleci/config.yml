@@ -62,6 +62,7 @@ jobs:
             # install the dependencies needed for your playbook
             apk add --update ansible
       - run: ansible --version
+      - run: node -v
       - run: ansible-playbook -i inventory.txt main-remote.yml
 
   create_infrastructure: 
@@ -144,30 +145,30 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  # initial_setup:
-  #   jobs:
-  #     - configure_infrastructure:
-  #         filters:
-  #               branches:
-  #                 only:
-  #                   - master
-  #                   - test
-  #     - create_infrastructure
-  #     - smoke_test2:
-  #         requires:
-  #           - create_infrastructure
-  #         # - configure_infrastructure
-  promote_exercise:
+  initial_setup:
     jobs:
-      - create_and_deploy_front_end
-      - promote_to_production:
-          requires: 
-            - create_and_deploy_front_end
-      - get_last_deployment_id
-      - clean_up_old_front_end:
+      - configure_infrastructure:
+          filters:
+                branches:
+                  only:
+                    - master
+                    - test
+      - create_infrastructure
+      - smoke_test2:
           requires:
-            - get_last_deployment_id
-            - promote_to_production
+            - create_infrastructure
+          # - configure_infrastructure
+  # promote_exercise:
+  #   jobs:
+  #     - create_and_deploy_front_end
+  #     - promote_to_production:
+  #         requires: 
+  #           - create_and_deploy_front_end
+  #     - get_last_deployment_id
+  #     - clean_up_old_front_end:
+  #         requires:
+  #           - get_last_deployment_id
+  #           - promote_to_production
   node-tests: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
