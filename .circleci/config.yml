@@ -15,7 +15,7 @@ executors:
 jobs:
   configure_infrastructure:
     docker:
-      - image: python:rc-alpine
+      - image: python:3.11-rc-alpine
     steps: 
       - checkout
       - add_ssh_keys:
