@@ -22,6 +22,9 @@ jobs:
       - run: npm install yarn
       - run: yarn --version
       - run: python --version
+      - add_ssh_keys:
+            # You can get this ID in the section where you registered the SSH Key
+            fingerprints: ["85:19:f8:b4:9f:01:e9:76:19:7f:d2:d1:32:ae:3e:00"] 
       - run:
           name: Install dependencies
           command: |
