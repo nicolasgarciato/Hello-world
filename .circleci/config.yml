@@ -144,19 +144,19 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  initial_setup:
-    jobs:
-      - configure_infrastructure:
-          filters:
-                branches:
-                  only:
-                    - master
-                    - test
-      - create_infrastructure
-      - smoke_test2:
-          requires:
-            - create_infrastructure
-          # - configure_infrastructure
+  # initial_setup:
+  #   jobs:
+  #     - configure_infrastructure:
+  #         filters:
+  #               branches:
+  #                 only:
+  #                   - master
+  #                   - test
+  #     - create_infrastructure
+  #     - smoke_test2:
+  #         requires:
+  #           - create_infrastructure
+  #         # - configure_infrastructure
   promote_exercise:
     jobs:
       - create_and_deploy_front_end
