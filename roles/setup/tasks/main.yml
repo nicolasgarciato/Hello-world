@@ -24,7 +24,7 @@
   become: yes
   npm:
     name: pm2
-    global: yes
+    path: ~/
     production: yes
     state: present
 
