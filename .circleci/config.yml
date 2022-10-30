@@ -19,7 +19,7 @@ jobs:
     steps: 
       - checkout
       - run: node --version
-      - run: npm install --global yarn
+      - run: npm install yarn
       - run: yarn --version
       - run: apk add --update ansible
       - run: ansible --version
