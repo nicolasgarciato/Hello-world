@@ -39,9 +39,8 @@ jobs:
   #           else
   #             return 1
   #           fi
-  smoke_test:
+  smoke_test2:
     docker:
-      - image: alpine:latest
       - image: amazon/aws-cli
     steps:
       - run:
@@ -90,7 +89,7 @@ workflows:
                     - master
                     - test
       - create_infrastructure
-      - smoke_test:
+      - smoke_test2:
           requires:
             - create_infrastructure
           # - configure_infrastructure
