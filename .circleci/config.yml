@@ -62,7 +62,6 @@ jobs:
             # install the dependencies needed for your playbook
             apk add --update ansible
       - run: ansible --version
-      - run: node -v
       - run: ansible-playbook -i inventory.txt main-remote.yml
 
   create_infrastructure: 

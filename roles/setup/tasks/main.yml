@@ -19,6 +19,10 @@
     name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
+  
+- name: Check node version
+  shell: |
+    node -v
 
 - name: "install pm2"
   become: yes
