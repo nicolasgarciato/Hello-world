@@ -11,17 +11,13 @@ executors:
   default-executor:
     docker:
       - image: circleci/node:13.8.0
-      - image: python:3.7-alpine3.11
 
 jobs:
   configure_infrastructure:
-    executor: default-executor
+    docker:
+      - image: python:3.7-alpine3.11
     steps: 
       - checkout
-      - run: node --version
-      - run: npm install yarn
-      - run: yarn --version
-      - run: python --version
       - add_ssh_keys:
             # You can get this ID in the section where you registered the SSH Key
             fingerprints: ["85:19:f8:b4:9f:01:e9:76:19:7f:d2:d1:32:ae:3e:00"] 
@@ -29,9 +25,9 @@ jobs:
           name: Install dependencies
           command: |
             # install the dependencies needed for your playbook
-            sudo apt install ansible
+            apk add --update ansible
       - run: ansible --version
-      - run: sudo ansible-playbook -i inventory main-remote.yml
+      - run: ansible-playbook -i inventory main-remote.yml
 
   create_infrastructure: 
       docker:
