@@ -152,10 +152,10 @@ workflows:
           #         only:
           #           - master
           #           - test
-      - create_infrastructure
-      - smoke_test2:
-          requires:
-            - create_infrastructure
+      # - create_infrastructure
+      # - smoke_test2:
+      #     requires:
+      #       - create_infrastructure
           # - configure_infrastructure
   # promote_exercise:
   #   jobs:
