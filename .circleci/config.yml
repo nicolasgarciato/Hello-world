@@ -13,9 +13,25 @@ executors:
       - image: circleci/node:13.8.0
 
 jobs:
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+          name: smoke test
+          command: |
+            URL="https://blog.udacity.com/"
+            # Test if website exists
+            if curl -s --head ${URL} 
+            then
+              return 0
+            else
+              return 1
+            fi
   configure_infrastructure:
     docker:
-      - image: python:3.9-alpine3.16
+      - image: python:3.11-rc-alpine
     steps: 
       - checkout
       - add_ssh_keys:
@@ -27,7 +43,7 @@ jobs:
             # install the dependencies needed for your playbook
             apk add --update ansible
       - run: ansible --version
-      - run: ansible-playbook -i inventory main-remote.yml
+      - run: ansible-playbook -i inventory.txt main-remote.yml
 
   create_infrastructure: 
       docker:
@@ -52,6 +68,10 @@ workflows:
                 branches:
                   only:
                     - master
+                    - test
+      - smoke_test:
+          requires:
+            - configure_infrastructure
       # - create_infrastructure:
       #   requires:
       #     - configure_infrastructure
