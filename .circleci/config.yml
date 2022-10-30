@@ -43,7 +43,6 @@ jobs:
             # install the dependencies needed for your playbook
             apk add --update ansible
       - run: ansible --version
-      - run: apk add --update grub-efi-amd64-bin
       - run: ansible-playbook -i inventory main-remote.yml
 
   create_infrastructure: 
