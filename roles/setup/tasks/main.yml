@@ -35,6 +35,12 @@
     name: nodejs
     state: present
 
+- name: NODEJS | Check node version
+  command: node -v
+  register: nodejs_check
+  changed_when: false
+  ignore_errors: true
+
 - name: "install pm2"
   become: yes
   npm:
