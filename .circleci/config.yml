@@ -7,12 +7,25 @@ orbs:
   node: circleci/node@4.7
 
 executors:
-  my-executor:
+  default-executor:
     docker:
       - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.11
     working_directory: /tmp
 
 jobs:
+  configure_infrastructure:
+    executor: default-executor
+    steps: 
+      - checkout
+      - node/install:
+        install-yarn: true
+        node-version: '16.13'
+      - run: node --version
+      - run: apk add --update ansible
+      - run: ansible --version
+      - run: ansible-playbook -i inventory main-remote.yml
+
   create_infrastructure: 
       docker:
         - image: amazon/aws-cli
@@ -31,8 +44,11 @@ jobs:
 workflows:
   initial_setup:
     jobs:
-      - create_infrastructure
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+      - configure_infrastructure
+      # - create_infrastructure:
+      #   requires:
+      #     - configure_infrastructure
+  node-tests: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - node/test:
