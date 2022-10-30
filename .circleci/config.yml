@@ -11,7 +11,7 @@ executors:
     docker:
       - image: circleci/node:13.8.0
       - image: python:3.7-alpine3.11
-    working_directory: /tmp
+    working_directory: /temporary
 
 jobs:
   configure_infrastructure:
