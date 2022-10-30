@@ -6,6 +6,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.7
+  ansible-playbook: orbss/ansible-playbook@0.0.5
 
 executors:
   default-executor:
@@ -22,7 +23,11 @@ jobs:
       - run: npm install yarn
       - run: yarn --version
       - run: python --version
-      - run: python install --upgrade ansible
+      - run:
+          name: Install dependencies
+          command: |
+            # install the dependencies needed for your playbook
+            apk add --update ansible 
       - run: ansible --version
       - run: ansible-playbook -i inventory main-remote.yml
 
