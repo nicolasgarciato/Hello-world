@@ -21,7 +21,8 @@ jobs:
       - run: node --version
       - run: npm install yarn
       - run: yarn --version
-      - run: python3 install --upgrade ansible
+      - run: python --version
+      - run: python install --upgrade ansible
       - run: ansible --version
       - run: ansible-playbook -i inventory main-remote.yml
 
